@@ -204,7 +204,7 @@ class ActiveScanner:
 
 	def enum_http(self, address, port, service, basedir):
 		scheme = 'https' if 'https' in service or 'ssl' in service else 'http'
-		nikto_ssl = ' -ssl' if 'https' in service or 'ssl' in service else '' 
+		nikto_ssl = ' -ssl' if 'https' in service or 'ssl' in service else ''
 
 		self.run_cmds([
 			(
@@ -225,7 +225,7 @@ class ActiveScanner:
 
 		self.run_cmds([
 			(
-				e('gobuster -w /usr/share/seclists/Discovery/Web_Content/common.txt -t 10 -u {scheme}://{address}:{port} -e -s "200,204,301,302,307,403,500" | tee "{basedir}/{port}_http_dirb.txt"'),
+				e('gobuster dir -w /Users/xuantung/hacking/wordlist/dirb/common.txt -t 10 -u {scheme}://{address}:{port} -e -s "200,204,301,302,307,403,500" | tee "{basedir}/{port}_http_dirb.txt"'),
 				e('gobuster-{port}')
 			),
 			(
@@ -236,7 +236,7 @@ class ActiveScanner:
 		])
 		#try:
 		#	with open(os.path.join('.', e('nikto_{address}.sh')), 'a') as file:
-		#		file.writelines(e('nikto -h {scheme}://{address}:{port}{nikto_ssl} -o "{basedir}/{port}_http_nikto.txt"') + '\n') 
+		#		file.writelines(e('nikto -h {scheme}://{address}:{port}{nikto_ssl} -o "{basedir}/{port}_http_nikto.txt"') + '\n')
 		#except:
 		#	pass
 
@@ -552,7 +552,6 @@ class ActiveScanner:
 		else:
 			if port <= 1024:
 				warn('Service {byellow}{service}{rst} will be scanned generically.')
-				
 				self.enum_generic_udp(address, port, service, basedir)
 
 			else:
@@ -602,7 +601,7 @@ if __name__ == '__main__':
 	parser.add_argument('-v', '--verbose', action='count', help='enable verbose output, repeat for more verbosity')
 	parser.add_argument('-n', '--name', action='store', help='name of the machine to append to the output name')
 	parser.add_argument('-o', '--output', action='store', default='results', help='output directory for the results')
-	parser.add_argument('--nmap', action='store', default='-Pn --min-rate=400 -T4 --script-timeout 10m', help='additional nmap arguments')
+	parser.add_argument('--nmap', action='store', default='-Pn', help='additional nmap arguments')
 	parser.add_argument('--hydra', action='store', default='-L data/users -P data/passwords -t 16 -f', help='additional hydra arguments')
 	parser.error = lambda x: fail(x[0].upper() + x[1:])
 	args = parser.parse_args()
