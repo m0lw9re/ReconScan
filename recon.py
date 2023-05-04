@@ -601,7 +601,7 @@ if __name__ == '__main__':
 	parser.add_argument('-v', '--verbose', action='count', help='enable verbose output, repeat for more verbosity')
 	parser.add_argument('-n', '--name', action='store', help='name of the machine to append to the output name')
 	parser.add_argument('-o', '--output', action='store', default='results', help='output directory for the results')
-	parser.add_argument('--nmap', action='store', default='-Pn', help='additional nmap arguments')
+	parser.add_argument('--nmap', action='store', default='-Pn --min-rate=400 -T4 --script-timeout 20m', help='additional nmap arguments')
 	parser.add_argument('--hydra', action='store', default='-L data/users -P data/passwords -t 16 -f', help='additional hydra arguments')
 	parser.error = lambda x: fail(x[0].upper() + x[1:])
 	args = parser.parse_args()
