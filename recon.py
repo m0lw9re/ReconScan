@@ -225,7 +225,7 @@ class ActiveScanner:
 
 		self.run_cmds([
 			(
-				e('gobuster dir -w /Users/xuantung/hacking/wordlist/dirb/common.txt -t 10 -u {scheme}://{address}:{port} -e -s "200,204,301,302,307,403,500" | tee "{basedir}/{port}_http_dirb.txt"'),
+				e('gobuster dir -w /Users/xuantung/hacking/wordlist/dirb/common.txt -t 8 -u {address}:{port} -e -s "200,204,301,302,307,403,500" | tee "{basedir}/{port}_http_dirb.txt"'),
 				e('gobuster-{port}')
 			),
 			(
